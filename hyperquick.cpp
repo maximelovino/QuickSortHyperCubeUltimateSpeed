@@ -1,3 +1,13 @@
+/**
+ * Hyperquick source file
+ *
+ * @brief	Main entry point of the program
+ * @file 	hyperquick.cpp
+ * @project	Hyperquick
+ * @author	Thomas Ibanez, Maxime Lovino
+ * @date	November 23, 2017
+ */
+
 #include "hyperquick.h"
 
 void printAll(vector<int> &data, int myPE, int p) {
@@ -96,42 +106,6 @@ void exchange(vector<int> &data, int step, int myPE) {
 		data.resize(size);
 		MPI_Recv(&data.front(), size, MPI_INT, neighbor, 42, MPI_COMM_WORLD,
 				 MPI_STATUS_IGNORE);
-	}
-}
-
-void split(int pivot, vector<int> &data, vector<int> &dataInf,
-		   vector<int> &dataSup) {
-	dataInf.clear();
-	dataSup.clear();
-
-	for (int i : data) {
-		if (i < pivot) {
-			dataInf.push_back(i);
-		} else {
-			dataSup.push_back(i);
-		}
-	}
-}
-
-void merge(vector<int> &data1, vector<int> &data2, vector<int> &result) {
-	result.clear();
-
-	auto finalIndex = 0;
-	auto firstIndex = 0;
-	auto secondIndex = 0;
-
-	while (finalIndex < (data1.size() + data2.size())) {
-		if (firstIndex < data1.size() && secondIndex >= data2.size()) {
-			result.push_back(data1[firstIndex++]);
-		} else if (firstIndex >= data1.size() && secondIndex < data2.size()) {
-			result.push_back(data2[secondIndex++]);
-		} else {
-			if (data1[firstIndex] < data2[secondIndex])
-				result.push_back(data1[firstIndex++]);
-			else
-				result.push_back(data2[secondIndex++]);
-		}
-		finalIndex++;
 	}
 }
 

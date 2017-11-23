@@ -1,3 +1,13 @@
+/**
+ * Hyperquick header file
+ *
+ * @file 	hyperquick.h
+ * @project	Hyperquick
+ * @author	Thomas Ibanez, Maxime Lovino
+ * @date	November 23, 2017
+ */
+
+
 #ifndef _HYPERQUICK_H_
 #define _HYPERQUICK_H_
 
@@ -8,6 +18,7 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include "sequential_functions.h"
 
 using namespace std;
 
@@ -45,24 +56,5 @@ void broadcast(int &pivot, int step, int p, int myPE);
  * @param myPE The identifier of the processing unit
  */
 void exchange(vector<int> &data, int step, int myPE);
-
-/**
- * Function to split a vector in two vectors
- * with elements smaller than the vector for the first, and bigger or equal for the second
- * @param pivot The pivot to use to split the data
- * @param data The data to split
- * @param dataInf The vector to put the inferior data in
- * @param dataSup The vector to put the superior or equal data in
- */
-void split(int pivot, vector<int> &data, vector<int> &dataInf,
-		   vector<int> &dataSup);
-
-/**
- * Function to merge two sorted vectors in a third sorted one
- * @param data1 The first vector to merge
- * @param data2 The second vector to merge
- * @param result The vector to store the merged data in
- */
-void merge(vector<int> &data1, vector<int> &data2, vector<int> &result);
 
 #endif
