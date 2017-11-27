@@ -49,9 +49,11 @@ void quickSort(vector<int> &data, int myPE, int p) {
 	auto d = (int) log2(p);
 
 	vector<int> dataInf, dataSup;
+	int pivot = 0;
 
 	for (int i = d; i > 0; i--) {
-		int pivot = data[data.size() / 2];
+		if (!data.empty())
+			pivot = data[data.size() / 2];
 
 		broadcast(pivot, i, p, myPE);
 
@@ -72,7 +74,7 @@ void broadcast(int &pivot, int step, int p, int myPE) {
 	if (step == log2(p))
 		me = 0;
 	else
-		me = ((myPE >> step) << step);
+		me = (myPE & (0x1 << step));
 
 	int indexInHypercube = myPE - me;
 
